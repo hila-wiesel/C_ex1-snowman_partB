@@ -35,23 +35,9 @@ namespace ariel{
     const int B = 7;    //base
 
     string snowman(int input){
-        //input test:
-        if (input<0){
-            throw invalid_argument("unveiled number");
-        }
-        if (input<min){
-            throw invalid_argument("input too short");
-        }
-        if (input>max){
-            throw invalid_argument("input too long");
-        }
-        int temp = input;
-        for (int i=0; i<input_length; ++i){
-            int digit = temp%ten;
-            if (digit==0 ||digit>4){
-                throw invalid_argument("unveiled digits");
-            }
-            temp /= ten;
+        string unveiled_input = inputCheck(input);
+        if (!unveiled_input.empty()){
+            throw invalid_argument(unveiled_input);
         }
 
         array<int,input_length> input_arr = {};
@@ -70,6 +56,27 @@ namespace ariel{
 
         return output;
         
+    }
+
+    string inputCheck(int input){
+        if (input<0){
+            return "unveiled number";
+        }
+        if (input<min){
+            return "input too short";
+        }
+        if (input>max){
+            return "input too long";
+        }
+        int temp = input;
+        for (int i=0; i<input_length; ++i){
+            int digit = temp%ten;
+            if (digit==0 ||digit>4){
+                return "unveiled digits";
+            }
+            temp /= ten;
+        }
+        return "";
     }
 
 }
